@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="/theme.css">
-    <link rel="stylesheet" href="/layout.css">
+    <link rel="stylesheet" href="/howto/theme.css">
+    <link rel="stylesheet" href="/howto/layout.css">
     <script type="module" src="../import-component.js"></script>
-    <script type="module" src="/software/prism-sample.js"></script>
+    <script type="module" src="/howto/software/prism-sample.js"></script>
   </head>
   <body>
     <header>
       <h1>Sample: Import-Component Advanced</h1>
       <nav>
-        <a href="/">Home</a>
+        <a href="/howto/">Home</a>
         <a href="../">Simple</a>
         <a href="../advanced.html">Advanced</a>
       </nav>
@@ -82,12 +82,11 @@
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: stretch;
-                border-bottom: 1px solid var(--foreground);
               }
-              #sample nav a:not(:last-child) {
-                border-right: 1px solid var(--foreground);
+              #sample nav a { 
+                padding: .5em 1em;
+                border: 1px solid var(--foreground);
               }
-              #sample nav a { padding: .5em 1em; }
               #sample nav a:hover { 
                 color: var(--foreground-contrast);
                 background-color: var(--background-contrast); 

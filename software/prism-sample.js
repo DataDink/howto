@@ -1,4 +1,4 @@
-import * as PRISMJS from '/software/prism.js'; // TODO: Investigate the prismjs module support / looks to be there, but non standard
+import * as PRISMJS from '/howto/software/prism.js'; // TODO: Investigate the prismjs module support / looks to be there, but non standard
 
 if (!customElements.get('prism-sample')) { 
   customElements.define('prism-sample', class extends HTMLElement {
@@ -29,8 +29,8 @@ if (!customElements.get('prism-sample')) {
       const shadow = this.attachShadow({ mode: 'open' });
       shadow.innerHTML = `
         <style>
-          @import '/theme.css';
-          @import '/software/prism.css';
+          @import '/howto/theme.css';
+          @import '/howto/software/prism.css';
           :host {
             position: relative;
             min-width: 0;
