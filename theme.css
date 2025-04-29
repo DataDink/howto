@@ -1,0 +1,49 @@
+:root {
+  --scale: 1;
+  --foreground: #000;
+  --background: #fff;
+  --foreground-contrast: var(--background);
+  --background-contrast: var(--foreground);
+  --highlight: #888;
+  --accent: #808;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  background: var(--background);
+  color: var(--foreground);
+  font-size: calc(var(--scale) * 2.5vmin);
+  font-family:'Trebuchet MS';
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: inherit;
+  font-weight: normal;
+}
+
+h1 { font-size: 2em; }
+h2 { font-size: 1.75em; }
+h3 { font-size: 1.5em; }
+h4 { font-size: 1.25em; }
+h5 { font-size: 1.1em; }
+h6 { font-size: 1em; }
+
+a {
+  color: var(--highlight);
+  text-decoration: none; 
+}
+
+header a, footer a, nav a {
+  color: inherit;
+}
+
+code { 
+  background: color-mix(in srgb, var(--highlight) 20%, transparent); 
+  display: inline-block;
+  white-space: pre;
+}
+
+article:not(:first-of-type) {
+  border-left: .1rem solid var(--accent);
+}

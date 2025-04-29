@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="stylesheet" href="/layout.css">
+    <script type="module" src="../import-component.js"></script>
+    <script type="module" src="/software/prism-sample.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Sample: Import-Component Advanced</h1>
+      <nav>
+        <a href="/">Home</a>
+        <a href="../">Simple</a>
+        <a href="../advanced.html">Advanced</a>
+      </nav>
+    </header>
+    <main>
+      <article>
+        <p>
+          Below are the files used in this sample:
+        </p>
+
+        <h3>advanced-sample.css</h3>
+        <prism-sample src="./advanced-sample.css"></prism-sample>
+
+        <h3>advanced-sample.html</h3>
+        <prism-sample src="./advanced-sample.html"></prism-sample>
+
+        <h3>reverse.js</h3>
+        <prism-sample src="./reverse.js"></prism-sample>
+
+        <h3>shift.js</h3>
+        <prism-sample src="./shift.js"></prism-sample>
+
+        <h3>increment.js</h3>
+        <prism-sample src="./increment.js"></prism-sample>
+      </article>
+      <article>
+        <p>
+          For this sample I am going to use the advanced version of the import-component to use a common style and layout for different scripts.
+          I will use the <code>src</code> attribute for the common style and layout,
+          and the <code>src-script</code> attribute for loading different scripts.
+        </p>
+
+        <prism-sample language="html" show-preview><template>
+          <div id="sample">
+            <nav>
+              <a href="./reverse.js">Reverse Script</a>
+              <a href="./shift.js">Shift Script</a>
+              <a href="./increment.js">Increment Script</a>
+            </nav>
+            <import-component src="./advanced-sample"
+                              src-script="./reverse.js">
+              <em>loading...</em>
+            </import-component>
+            <script>
+              const component = sample.querySelector('import-component');
+              const navs = [...sample.querySelectorAll('nav a')];
+              for (let nav of navs) {
+                nav.addEventListener('click', e => {
+                  e.preventDefault(); // Prevent default link behavior
+                  component.srcScript = e.target.href; // Update the script only
+                });
+              }
+            </script>
+            <style>
+              #sample {
+                display: flex;
+                flex-direction: column;
+                justify-content: stretch;
+                align-items: stretch;
+                padding: 2em;
+                margin: 2em;
+                border: .1rem color-mix(in srgb, var(--foreground) 30%, transparent) solid;
+                border-radius: 1rem;
+                box-shadow: .5rem .5rem 1rem rgba(0, 0, 0, .2);
+                gap: 1em;
+              }
+              #sample nav {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: stretch;
+                border-bottom: 1px solid var(--foreground);
+              }
+              #sample nav a:not(:last-child) {
+                border-right: 1px solid var(--foreground);
+              }
+              #sample nav a { padding: .5em 1em; }
+              #sample nav a:hover { 
+                color: var(--foreground-contrast);
+                background-color: var(--background-contrast); 
+              }
+            </style>
+          </div>
+        </template></prism-sample>
+      </article>
+    </main>
+    <footer>
+      <em>Contributor: Greenwald</em>
+    </footer>
+  </body>
+</html>
