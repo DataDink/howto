@@ -2,95 +2,44 @@ import * as PRISMJS from '/howto/software/prism.js'; // TODO: Investigate the pr
 
 if (!customElements.get('prism-sample')) { 
   customElements.define('prism-sample', class extends HTMLElement {
-    connectedCallback() {
-      if (this.hasAttribute('src')) { this.#loadSrc(); }
-      else { this.#loadContent(); }
+    get shadow() { return this.#shadow; } #shadow = this.attachShadow({ mode: 'open' });
+    get content() { return this.#content; } #content = '';
+    get language() { return this.#language; } #language = '';
+    get name() { return this.#name; } #name = 'sample';
+
+    connectedCallback() { this.load(); }
+
+    async load() {
+      const style = import.meta.resolve('./prism-sample.css');
+      this.#shadow.innerHTML = `<style>@import '${style}'</style>`;
+      if (this.hasAttribute('src')) { await this.#configureFromSrc(); }
+      else { await this.#configureFromTemplate(); }
+      this.#render();
     }
-    async #loadSrc() {
+
+    async #configureFromSrc() {
       const src = this.getAttribute('src');
-      const ext = src.split('.').pop().toLowerCase();
-      const language = this.hasAttribute('language') ? this.getAttribute('language')
+      const file = src.split('/').pop();
+      const ext = file.split('.').pop().toLowerCase();
+      this.#name = file.length ? file.split('.').shift() : 'sample';
+      this.#language = this.hasAttribute('language') ? this.getAttribute('language')
                       : ext === 'js' ? 'javascript'
                       : ext === 'css' ? 'css'
                       : 'html';
-      const content = await (await fetch(src)).text();
-      this.load(content, language);
+      this.#content = await (await fetch(src)).text();
     }
-    async #loadContent() {
+
+    async #configureFromTemplate() {
       await new Promise(resolve => setTimeout(resolve));
       const template = this.querySelector('template');
-      const content = [...template?.content.cloneNode(true).childNodes]
+      this.#content = [...template?.content.cloneNode(true).childNodes]
         .map(n => n.nodeType === Node.TEXT_NODE ? n.textContent : n.outerHTML)
         .join('');
-      const language = this.hasAttribute('language') ? this.getAttribute('language') : 'html';
-      this.load(content, language);
+      this.#language = this.hasAttribute('language') ? this.getAttribute('language') : 'html';
     }
-    load(content, language) {
-      const shadow = this.attachShadow({ mode: 'open' });
-      shadow.innerHTML = `
-        <style>
-          @import '/howto/theme.css';
-          @import '/howto/software/prism.css';
-          :host {
-            position: relative;
-            min-width: 0;
-            width: 100%;
-          }
-          pre[part="source"] {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: stretch;
-            align-items: stretch;
-            margin: 1em 0;
-            padding: 2em 1em 0.5em;
-            background: var(--background-contrast);
-            color: var(--foreground-contrast);
-            min-height: max-content;
-            min-width: 7em;
-            border-radius: 1rem;
-            box-shadow: .5rem .5rem 1rem rgba(0,0,0,.5);
-            gap: .25em;
-          }
-          pre[part="source"] > code {
-            display: block;
-            padding: 0;
-            margin: 0;
-            min-height: max-content;
-            min-width: 0
-            flex: 1;
-            overflow: auto;
-          }
-          [part="preview"] {
-            position: relative;
-            display: block;
-            margin: 1em 0;
-            padding: .5em 1em;
-            border: .1rem solid var(--foreground);
-            border-radius: 1rem;
-            box-shadow: .5rem .5rem 1rem rgba(0,0,0,.5);
-          }
-          [part="preview"]::before, 
-          pre[part="source"]::before {
-            content: 'sample';
-            display: block;
-            position: absolute;
-            top: 0; left: 0;
-            text-align: center;
-            font-style: italic;
-            opacity: .5;
-            border: .1rem solid var(--foreground);
-            border-radius: 1rem 0 1rem 0;
-            padding: 0 1em;
-          }
-          pre[part="source"]::before { 
-            content: 'source';
-            border-color: var(--foreground-contrast); 
-          }
-        </style>
-      `;
 
-      const trimmed = content.replace(/^[\s\n\r]*[\r\n]+|[\s\r\n]+$/g, '');
+    #render() {
+      const trimmed = this.#content.replace(/^[\s\n\r]*[\r\n]+|[\s\r\n]+$/g, '');
       const indent = [...trimmed.matchAll(/^\s*(?=\S)/mg)].reduce((a, b) => Math.min(a, b[0].length), Infinity);
       const undented = trimmed.split('\n').map(l => l.slice(indent)).join('\n');
 
@@ -100,17 +49,53 @@ if (!customElements.get('prism-sample')) {
         preview.innerHTML = undented;
         const scripts = [...preview.querySelectorAll('script')];
         for (const script of scripts) { script.remove(); }
-        shadow.appendChild(preview);
+        this.#shadow.appendChild(preview);
         for (const script of scripts) { new Function('sample', script.innerHTML)(preview); }
       }
 
       const source = document.createElement('pre');
       source.setAttribute('part', 'source');
+      const menu = source.appendChild(document.createElement('menu'));
+      const copy = menu.appendChild(document.createElement('button'));
+      copy.textContent = 'copy';
+      copy.addEventListener('click', e => this.copyToClipboard());
+      const download = menu.appendChild(document.createElement('button'));
+      download.textContent = 'download';
+      download.addEventListener('click', e => this.download());
       const code = source.appendChild(document.createElement('code'));
-      code.classList.add('language-' + language);
+      code.classList.add('language-' + this.#language);
       code.textContent = undented;
-      shadow.appendChild(source);
+      this.#shadow.appendChild(source);
       Prism.highlightElement(code);
+    }
+
+    copyToClipboard() {
+      const range = document.createRange();
+      range.selectNodeContents(this.#shadow.querySelector('code'));
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+
+      const item = new ClipboardItem({ 'text/plain': this.#content });
+      navigator.clipboard.write([item]);
+    }
+
+    download() {
+      const ext = this.#language === 'javascript' ? 'js'
+                : this.#language === 'css' ? 'css'
+                : 'html';
+      const blob = new Blob([this.#content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${this.#name}.${ext}`;
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+        a.remove();
+      }, 1000);
     }
   });
 }

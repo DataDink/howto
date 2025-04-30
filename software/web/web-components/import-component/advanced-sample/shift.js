@@ -4,6 +4,7 @@ export default class SecondScript extends ImportComponent {
   interval;
   attach(content) {
     const div = content.querySelector('div');
+    div.style.border = '3px solid red';
     const button = content.querySelector('button');
     button.addEventListener('click', e => {
       clearInterval(this.interval);
