@@ -32,21 +32,19 @@ if (!customElements.get('prism-sample')) {
     async #configureFromTemplate() {
       await new Promise(resolve => setTimeout(resolve));
       const template = this.querySelector('template');
-      this.#content = [...template?.content.cloneNode(true).childNodes]
+      this.#content = [...template?.content?.cloneNode(true).childNodes]
         .map(n => n.nodeType === Node.TEXT_NODE ? n.textContent : n.outerHTML)
         .join('');
       this.#language = this.hasAttribute('language') ? this.getAttribute('language') : 'html';
     }
 
     #render() {
-      const trimmed = this.#content.replace(/^[\s\n\r]*[\r\n]+|[\s\r\n]+$/g, '');
-      const indent = [...trimmed.matchAll(/^\s*(?=\S)/mg)].reduce((a, b) => Math.min(a, b[0].length), Infinity);
-      const undented = trimmed.split('\n').map(l => l.slice(indent)).join('\n');
+      const formatted = this.#format();
 
       if (this.hasAttribute('show-preview')) {
         const preview = document.createElement('div');
         preview.setAttribute('part', 'preview');
-        preview.innerHTML = undented;
+        preview.innerHTML = formatted;
         const scripts = [...preview.querySelectorAll('script')];
         for (const script of scripts) { script.remove(); }
         this.#shadow.appendChild(preview);
@@ -64,9 +62,43 @@ if (!customElements.get('prism-sample')) {
       download.addEventListener('click', e => this.download());
       const code = source.appendChild(document.createElement('code'));
       code.classList.add('language-' + this.#language);
-      code.textContent = undented;
+      code.textContent = formatted;
       this.#shadow.appendChild(source);
       Prism.highlightElement(code);
+    }
+
+    #format() {
+      const trimmed = this.#content.replace(/^[\s\n\r]*[\r\n]+|[\s\r\n]+$/g, '');
+      const indent = [...trimmed.matchAll(/^\s*(?=\S)/mg)].reduce((a, b) => Math.min(a, b[0].length), Infinity);
+      const undented = trimmed.split('\n').map(l => l.slice(indent)).join('\n');
+      return this.#language === 'html' 
+        ? this.#formatNodes([...new DOMParser().parseFromString(undented, 'text/html').body.childNodes])
+        : undented;
+    }
+
+    #formatNodes(nodes) { // Because template content looses its formatting
+      let reformatted = '';
+      let current = 1;
+      for (let node of nodes) {
+        if (node instanceof Element) {
+          const tag = node.tagName.toLowerCase();
+          const attrs = [...node.attributes].map(a => `${a.name}="${a.value}"`);
+          reformatted += `<${tag}`;
+          if (attrs.length) { reformatted += ` ${attrs.shift()}`; }
+          for (const attr of attrs) {
+            reformatted += `\n${' '.repeat(tag.length + 1 + current, ' ')}${attr}`;
+          }
+          reformatted += '>';
+          reformatted += this.#formatNodes([...node.childNodes]);
+          reformatted += `</${tag}>`;
+          continue;
+        }
+        const text = node.outerHTML?.length ? node.outerHTML : node.textContent ?? '';
+        reformatted += text;
+        const space = [...text.matchAll(/^\s+?$/gm)]?.at(-1)?.at(-1);
+        if (space != null) { current = space.length; }
+      }
+      return reformatted;
     }
 
     copyToClipboard() {
