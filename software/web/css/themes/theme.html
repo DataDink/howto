@@ -1,0 +1,184 @@
+<article>
+  <h3>theme.css</h3>
+  <p>
+    The <code>theme.css</code> file is where I define my palette, typography and scale among other configurations.
+    I make heavy use of CSS variables here to allow for easy customization and overrides.
+    For example, I might define my color palette on the <code>:root</code> selector like so:
+  </p>
+  <code-sample language="css"><template>
+    :root {
+      --color-primary: #3498db;
+      --color-secondary: #2ecc71;
+      --color-background: #ecf0f1;
+      --color-text: #2c3e50;
+    }
+  </template></code-sample>
+  <p>
+    Just like with the high-level concerns, however, I want to make sure that my theme variables are broken out into meaninful concerns.
+    In the example above; the terms <code>primary</code> and <code>secondary</code> don't convey good context.
+    Likewise, the terms <code>background</code> and <code>text</code> are too specific and lack flexibility.
+    For example: If I need to change the background color of a specific component, it may conflict with the color assigned to the <code>text</code> variable.
+    Instead, when building a palette, I want to use meaningful names that remain flexible for different situations.
+  </p>
+  <p>
+    My typical approach for this is to first break all colors out into <code>background</code> and <code>foreground</code> variables.
+    Every <code>foreground</code> color should be compatible with every <code>background</code> color.
+  </p>
+  <code-sample language="css"><template>
+    :root {
+      --foreground: #000;
+      --background: #fff;
+      --foreground-primary: #444;
+      --background-primary: #ff4;
+      --foreground-secondary: #620;
+      --background-secondary: #afe;
+    }
+  </template></code-sample>
+  <p>
+    Next, the contextual colors should have more meaningful names.
+    Instead of <code>primary</code> and <code>secondary</code>, I can use <code>accent</code> and <code>muted</code>.
+    These names are far more meaningful without being to specific.
+  </p>
+  <code-sample language="css"><template>
+    :root {
+      --foreground: #000000;
+      --background: #ffffff;
+      --foreground-accent: #3498db;
+      --background-accent: #ecf0f1;
+      --foreground-muted: #2ecc71;
+      --background-muted: #bdc3c7;
+    }
+  </template></code-sample>
+  <p>
+    Now if I want to color the text in a component to be either muted or accented, I can do so without worrying about the background color.
+    Conversely, I can change the background color to any of the background colors without worrying about conflicting with any of the text.
+    In addition to this, I can also add contrast to an element by swapping the foreground and background colors like so:
+  </p>
+  <code-sample language="css"><template>
+    blockquote {
+      color: var(--background);
+      background: var(--foreground);
+    }
+  </template></code-sample>
+  <p>
+    This will make <code>&lt;blockquote&gt;</code> elements stand out from the rest of the content.
+  </p>
+  <h3>Fonts</h3>
+  <p>
+    I will also define my fonts and styles in the <code>theme.css</code>.
+    These should also be stored in variables for easy customization and should also be named meaninfully.
+  </p>
+  <code-sample language="css"><template>
+    :root {
+      /* ... */
+      --font: 'Georgia', serif;
+      --font-title: 'Helvetica Neue', Arial, sans-serif;
+      --font-emphasis: 'Courier New', monospace;
+    }
+  </template></code-sample>
+  <p>
+    I will also set up default theme configurations for elements using these variables in the <code>theme.css</code>.
+  </p>
+  <code-sample language="css"><template>
+    body {
+      font-family: var(--font-content);
+      color: var(--foreground);
+      background: var(--background);
+    }
+    header {
+      font-family: var(--font-title);
+      color: var(--background);
+      background: var(--foreground);
+    }
+    /* ... */
+  </template></code-sample>
+  <h3>Scale</h3>
+  <p>
+    The last thing I typically define in the <code>theme.css</code> is my scale.
+    I will usually create a single numeric variable that I base everything off of:
+  </p>
+  <code-sample language="css"><template>
+    :root {
+      --scale: 1.5;
+      /* ... */
+    }
+  </template></code-sample>
+  <p>
+    Instead of using this variable directly, I will base the page's <code>font-size</code> off of it.
+    This will allow me contextually scale all content both relatively and absolutely using a common typographic metric.
+    Additionally, I can use viewport units to scale the page based on the user's viewport and ratio giving me a more responsive design.
+  </p>
+  <code-sample language="css"><template>
+    body {
+      font-size: calc(var(--scale) * 3vmin);
+      /* ... */
+    }
+    h1 { font-size: 2.5em; }
+    h2 { font-size: 2em; }
+    h3 { font-size: 1.5em; }
+    h4 { font-size: 1.25em; }
+    h5 { font-size: 1.125em; }
+    h6 { font-size: 1em; }
+    /* ... */
+  </template></code-sample>
+  <h3>My Typical Theme.css</h3>
+  <p>
+    Here is a typical <code>theme.css</code> file that I might use for a project:
+  </p>
+  <code-sample language="css"><template>
+    :root {
+      --scale: 1.5;
+      --foreground: #000000;
+      --background: #ffffff;
+      --foreground-accent: #3498db;
+      --background-accent: #ecf0f1;
+      --foreground-muted: #2ecc71;
+      --background-muted: #bdc3c7;
+      --font: 'Georgia', serif;
+      --font-title: 'Helvetica Neue', Arial, sans-serif;
+      --font-emphasis: 'Courier New', monospace;
+    }
+    body {
+      font-size: calc(var(--scale) * 3vmin);
+      font-family: var(--font);
+      color: var(--foreground);
+      background: var(--background);
+    }
+    header {
+      font-family: var(--font-title);
+      color: var(--background);
+      background: var(--foreground);
+    }
+    footer {
+      font-family: var(--font);
+      color: var(--background);
+      background: var(--foreground);
+      font-style: italic;
+      font-family: var(--font-emphasis);
+      font-size: 0.75em;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-title);
+    }
+    h1 { font-size: 2.5em; }
+    h2 { font-size: 2em; }
+    h3 { font-size: 1.5em; }
+    h4 { font-size: 1.25em; }
+    h5 { font-size: 1.125em; }
+    h6 { font-size: 1em; }
+    a {
+      color: var(--foreground-accent);
+      text-decoration: none;
+    }
+    a:hover {
+      color: var(--background-accent); 
+      background: var(--foreground-accent);
+    }
+  </template></code-sample>
+  <p>
+    This is a very simple starting point I can use for any project.
+    Further more, I can easily customize the theme by overriding the variables either in css or javascript.
+    This allows me to deviate from the standard theme for specific situations.
+    It also allows me to create user preferences for the theme that can be controlled programmatically.
+  </p>
+</article>

@@ -1,4 +1,4 @@
-import {ImportComponent} from '../import-component.js';
+import {ImportComponent} from 'import-component';
 
 export default class ThirdScript extends ImportComponent {
   attach(content) {

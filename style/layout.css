@@ -29,16 +29,9 @@ header, footer {
   justify-content: space-between;
   align-items: stretch;
   padding: 0 1em;
-  background: var(--background-contrast);
-  color: var(--foreground-contrast);
+  background: var(--foreground);
+  color: var(--background);
   box-shadow: 0 0 1em black;
-}
-
-nav a {
-  padding: 0 1em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 article, aside {
@@ -51,28 +44,20 @@ article { align-items: center; }
 
 article > * { max-width: 50rem; }
 
-menu ul {
-  list-style: none;
-  margin: 0;
-  padding: 0 0 0 1em;
-}
-
-menu li {
-  margin: 0;
-  padding: 0;
-}
-
-menu a {
-  display: block;
+menu a, nav a {
+  color: inherit;
+  display: flex;
   padding: 0.5em 1em;
-  color: var(--accent);
+  align-items: center;
+  justify-content: center;
+  flex: 1;
 }
 
-menu a:hover {
-  color: var(--foreground-contrast);
-  background: var(--highlight);
+menu a:hover, nav a:hover {
+  color: var(--background-highlight);
+  background: var(--foreground-highlight);
 }
 
-menu a::before {
-  content: '>';
+nav *:not(:first-child) {
+  border-left: .1rem solid var(--foreground);
 }

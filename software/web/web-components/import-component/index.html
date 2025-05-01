@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="/howto/theme.css">
-    <link rel="stylesheet" href="/howto/layout.css">
-    <script type="module" src="/howto/software/prism-sample.js"></script>
+    <link rel="stylesheet" href="/howto/site.css">
+    <script type="module" src="/howto/site.js"></script>
   </head>
   <body>
     <header>
@@ -24,14 +23,14 @@
           The simplest version of this loads content with the page and never changes.
           This looks like so:
         </p>
-        <prism-sample language="html"><template>
+        <code-sample language="html"><template>
           <import-component src="./path/to/component"></import-component>
-        </template></prism-sample>
+        </template></code-sample>
         <p>
           In this version, the component loads "./path/to/component.css" and "./path/to/component.html" and "./path/to/component.js".
           The content is inserted into the component's shadow dom and then the script is executed with <code>this</code> set to the dom content.
         </p>
-        <prism-sample language="javascript"><template>
+        <code-sample language="javascript"><template>
           customElements.define("import-component", class extends HTMLElement {
             #shadow = this.attachShadow({ mode: 'open' });
             connectedCallback() { this.load(); }
@@ -47,7 +46,7 @@
               new Function(script).call(this.#shadow);
             }
           });
-        </template></prism-sample>
+        </template></code-sample>
         <p>
           This component, however, usually needs to change its content over time.
           For this I will make the component respond to changes in the src attribute.
@@ -55,10 +54,10 @@
           but web components have a built-in mechanism for responding to attribute changes which is more inline with web standards.
           For this I will use the <code>attributeChangedCallback</code> method to respond to changes in the src attribute.
         </p>
-        <prism-sample language="javascript"><template>
+        <code-sample language="javascript"><template>
           static get observedAttributes() { return ['src']; }
           attributeChangedCallback() { this.load(); }
-        </template></prism-sample>
+        </template></code-sample>
         <p>
           Adding the <code>observedAttributes</code> static array will cause the <code>attributeChangedCallback</code> method to be called when the specified attributes are changed.
         </p>
@@ -67,38 +66,38 @@
           To accomplish this I will leverage interfacing and ECMAScript modules.
           The component should export an interface that defines the methods for attaching and detaching.
         </p>
-        <prism-sample language="javascript"><template>
+        <code-sample language="javascript"><template>
           export class ImportComponent {
             attach(content) { }
             detach(content) { }
           }
-        </template></prism-sample>
+        </template></code-sample>
         <p>
           Now code being loaded into the component can extend this interface and implement at least the attach code and, when necessary, the detach code.
           The <code>content</code> will be the shadow dom of the component and I will bind the <code>this</code>context to the component element itself.
         </p>
-        <prism-sample language="javascript"><template>
+        <code-sample language="javascript"><template>
           import { ImportComponent } from './import-component.js';
           export default class extends ImportComponent {
             attach(content) { /* ... */ }
             detach(content) { /* ... */ } // optional
           }
-        </template></prism-sample>
+        </template></code-sample>
         <p>
           The component will also need to import the module code instead of just executing it.
         </p>
-        <prism-sample language="javascript"><template>
+        <code-sample language="javascript"><template>
           /* ... */
           const srcMod = new URL(src + '.js', location); // resolves relative to the page
           const script = await import(srcMod);
           const module = new script.default();
           module.attach.call(this, this.#shadow);
           /* ... */
-        </template></prism-sample>
+        </template></code-sample>
         <p>
           In order to support the <code>detach</code> functionality, I will add an <code>unload</code> method to the component.
         </p>
-        <prism-sample language="javascript"><template>
+        <code-sample language="javascript"><template>
           #module;
           unload() {
             this.#shadow.innerHTML = '';
@@ -106,12 +105,12 @@
             this.#module.detach.call(this, this.#shadow);
             this.#module = null;
           }
-        </template></prism-sample>
+        </template></code-sample>
         <p>
           Finally, the <code>load</code> method will need to be updated to call the <code>unload</code> method before loading.
           The final product should look like so:
         </p>
-        <prism-sample language="javascript"><template>
+        <code-sample language="javascript"><template>
           export class ImportComponent {
             attach(content) { }
             detach(content) { }
@@ -146,7 +145,7 @@
               this.#module.attach.call(this, this.#shadow);
             }
           });
-        </template></prism-sample>
+        </template></code-sample>
         <p>
           This component can now be used to load remote content into the existing dom without conflict with it.
           It supports isolation and separation of concerns by loading component content from separate style, layout and script files.

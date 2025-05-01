@@ -1,5 +1,5 @@
-@import '/howto/theme.css';
-@import '/howto/software/prism.css';
+@import '/howto/style/theme.css';
+@import '/howto/source/prism.css';
 :host {
   position: relative;
   min-width: 0;
@@ -13,12 +13,11 @@ pre[part="source"] {
   align-items: stretch;
   margin: 1em 0;
   padding: .5em 1em;
-  background: var(--background-contrast);
-  color: var(--foreground-contrast);
+  background: var(--foreground);
+  color: var(--background);
   min-height: max-content;
   min-width: 7em;
   border-radius: 1rem;
-  box-shadow: .5rem .5rem 1rem rgba(0,0,0,.5);
   gap: .25em;
 }
 pre[part="source"] > code {
@@ -37,7 +36,6 @@ pre[part="source"] > code {
   padding: 2em 1em .5em;
   border: .1rem solid var(--foreground);
   border-radius: 1rem;
-  box-shadow: .5rem .5rem 1rem rgba(0,0,0,.5);
 }
 [part="preview"]::before {
   content: 'sample';
@@ -61,7 +59,7 @@ pre[part="source"] > menu {
   padding: 0;
 }
 pre[part="source"] > menu > button {
-  border: .1rem solid var(--foreground-contrast);
+  border: .1rem solid var(--background);
   border-radius: 1em;
   color: inherit;
   background: transparent;

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="/howto/theme.css">
-    <link rel="stylesheet" href="/howto/layout.css">
-    <script type="module" src="../import-component.js"></script>
-    <script type="module" src="/howto/software/prism-sample.js"></script>
+    <link rel="stylesheet" href="/howto/site.css">
+    <script type="module" src="/howto/site.js"></script>
+    <script type="importmap"> { "imports": { "import-component": "/howto/source/import-component.js" } } </script>
   </head>
   <body>
     <header>
@@ -21,20 +20,20 @@
           Below are the files used in this sample:
         </p>
 
-        <h3>advanced-sample.css</h3>
-        <prism-sample src="./advanced-sample.css"></prism-sample>
+        <h3>sample.css</h3>
+        <code-sample src="./sample.css"></code-sample>
 
-        <h3>advanced-sample.html</h3>
-        <prism-sample src="./advanced-sample.html"></prism-sample>
+        <h3>sample.html</h3>
+        <code-sample src="./sample.html"></code-sample>
 
         <h3>reverse.js</h3>
-        <prism-sample src="./reverse.js"></prism-sample>
+        <code-sample src="./reverse.js"></code-sample>
 
         <h3>shift.js</h3>
-        <prism-sample src="./shift.js"></prism-sample>
+        <code-sample src="./shift.js"></code-sample>
 
         <h3>increment.js</h3>
-        <prism-sample src="./increment.js"></prism-sample>
+        <code-sample src="./increment.js"></code-sample>
       </article>
       <article>
         <p>
@@ -43,14 +42,14 @@
           and the <code>src-script</code> attribute for loading different scripts.
         </p>
 
-        <prism-sample language="html" show-preview><template>
+        <code-sample language="html" show-preview><template>
           <div id="sample">
             <nav>
               <a href="./reverse.js">Reverse Script</a>
               <a href="./shift.js">Shift Script</a>
               <a href="./increment.js">Increment Script</a>
             </nav>
-            <import-component src="./advanced-sample"
+            <import-component src="./sample"
                               src-script="./reverse.js">
               <em>loading...</em>
             </import-component>
@@ -83,12 +82,12 @@
                 border: 1px solid var(--foreground);
               }
               #sample nav a:hover { 
-                color: var(--foreground-contrast);
-                background-color: var(--background-contrast); 
+                color: var(--background);
+                background-color: var(--foreground); 
               }
             </style>
           </div>
-        </template></prism-sample>
+        </template></code-sample>
       </article>
     </main>
     <footer>

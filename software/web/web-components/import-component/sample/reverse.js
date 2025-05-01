@@ -1,4 +1,4 @@
-import {ImportComponent} from '../import-component.js';
+import {ImportComponent} from 'import-component';
 
 export default class FirstScript extends ImportComponent {
   attach(content) {

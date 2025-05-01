@@ -40,16 +40,18 @@ customElements.define('import-component', class extends HTMLElement {
       const srcStyle = this.srcStyle ?? src + '.css';
       const srcLayout = this.srcLayout ?? src + '.html';
       const srcScript = this.srcScript ?? src + '.js';
-      const style = await (await fetch(srcStyle)).text();
-      const layout = await (await fetch(srcLayout)).text();
+      const style = srcStyle.length ? await (await fetch(srcStyle)).text() : '';
+      const layout = srcLayout.length ? await (await fetch(srcLayout)).text() : '';
       this.#shadow.innerHTML = `
         <style>${style}</style>
         ${layout}
       `;
-      const srcMod = new URL(srcScript, location);
-      const script = await import(srcMod);
-      this.#module = new script.default();
-      this.#module.attach.call(this, this.#shadow);
+      if (srcScript.length) {
+        const srcMod = new URL(srcScript, location);
+        const script = await import(srcMod);
+        this.#module = new script.default();
+        this.#module.attach.call(this, this.#shadow);
+      }
     } catch (error) {
       this.unload();
       throw error;

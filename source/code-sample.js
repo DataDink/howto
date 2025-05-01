@@ -1,7 +1,7 @@
-import * as PRISMJS from '/howto/software/prism.js'; // TODO: Investigate the prismjs module support / looks to be there, but non standard
+import * as PRISMJS from '/howto/source/prism.js'; // TODO: Investigate the prismjs module support / looks to be there, but non standard
 
-if (!customElements.get('prism-sample')) { 
-  customElements.define('prism-sample', class extends HTMLElement {
+if (!customElements.get('code-sample')) { 
+  customElements.define('code-sample', class extends HTMLElement {
     get shadow() { return this.#shadow; } #shadow = this.attachShadow({ mode: 'open' });
     get content() { return this.#content; } #content = '';
     get language() { return this.#language; } #language = '';
@@ -10,7 +10,7 @@ if (!customElements.get('prism-sample')) {
     connectedCallback() { this.load(); }
 
     async load() {
-      const style = import.meta.resolve('./prism-sample.css');
+      const style = import.meta.resolve('./code-sample.css');
       this.#shadow.innerHTML = `<style>@import '${style}'</style>`;
       if (this.hasAttribute('src')) { await this.#configureFromSrc(); }
       else { await this.#configureFromTemplate(); }
