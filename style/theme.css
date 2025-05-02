@@ -35,8 +35,12 @@ h6 { font-size: 1em; }
 
 a {
   color: var(--foreground-highlight);
-  text-decoration: none; 
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 header a, footer a, nav a { color: inherit; }
 
+a[target="_blank"]::after {
+  content: ' \226b';
+}
