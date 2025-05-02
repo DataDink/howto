@@ -15,4 +15,106 @@
     <code>nav</code>,
     <code>menu</code>
   </p>
+  <h3>Flex Layouts</h3>
+  <p>
+    Modern layouts are done using flexbox (dependeing on how old this document is when you read it).
+    To start with, the <code>html</code> and <code>body</code> elements are redundant.
+    My first step is to clear these out and set them to fill the viewport.
+  </p>
+  <code-sample language="css"><template>
+    * { box-sizing: border-box; }
+    html, body {
+      position: relative;
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+    }
+  </template></code-sample>
+  <p>
+    I also want to set these element to use flex, but I set that in another declaration shared with all of the other elements.
+  </p>
+  <code-sample language="css"><template>
+    html, body, header, footer, main, section, article, aside, nav, menu {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: stretch;
+      align-items: stretch;
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+      gap: 1em;
+    }
+  </template></code-sample>
+  <p>
+    This sets a baseline for all of the primary layout elements.
+    After this I can start breaking out smaller statements grouped by override values.
+  </p>
+  <code-sample language="css"><template>
+    header, footer, main, section { flex-direction: row; }
+    header, footer { justify-content: space-between; }
+    /* ... */
+  </template></code-sample>
+  <p>
+    The overral goal is, after <code>html</code>, <code>body</code> and <code>main</code>,
+    the <code>section</code>, <code>article</code> and <code>aside</code> elements are infinitely nestable.
+  </p>
+  <code-sample language="html" show-preview><template>
+    <div id="layout-sample">
+      <style>
+        main, section, article, aside {
+          flex: 1;
+          display: flex;
+          flex-direction: row;
+          justify-content: stretch;
+          align-items: stretch;
+          min-width: 0;
+          min-height: 0;
+          overflow: hidden;
+          gap: 1em;
+          border: 3px solid red;
+        }
+        article, aside { 
+          flex-direction: column; 
+          border-color: blue;
+        }
+        aside { 
+          flex: 0;
+          min-width: min-content; 
+          background: grey;
+        }
+      </style>
+      <main>
+        <aside>(aside)</aside>
+        <article>
+          (article)
+          <section>
+            <aside>(aside)</aside>
+            <article>
+              (article)
+              <section>
+                <aside>(aside)</aside>
+                <article>
+                  (article)
+                  <section>
+                    <aside>(aside)</aside>
+                    <article>(and so on...)</article>
+                    <aside>(aside)</aside>
+                  </section>
+                </article>
+                <aside>(aside)</aside>
+              </section>
+            </article>
+            <aside>(aside)</aside>
+          </section>
+        </article>
+        <aside>(aside)</aside>
+      </main>
+    </div>
+  </template></code-sample>
+  <p>
+    From here I can change where and how things scroll and size using <code>overflow</code>, <code>justify-content</code>, <code>align-items</code>, <code>align-self</code>, <code>flex-grow</code>, <code>min-height</code>, etc.
+  </p>
+  <p>
+    For more details on flexbox, check out the Mozilla Developer Network's <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox">Basic Concepts of Flexbox</a>.
+  </p>
 </article>
