@@ -1,0 +1,34 @@
+<article>
+  <h3>Components</h3>
+  <p>
+    Components, not to be confused with web components, refer to the more specific parts of the application like lists, blockquotes, etc.
+    These can be broken out from the <code>theme.css</code> and <code>layout.css</code> allowing them to be more modular.
+    For example, I might have a <code>blocks.css</code> file that contains blockquote styles like so:
+  </p>
+  <code-sample show-preview><template>
+    <div>
+      <style>
+        blockquote {
+          /* Invert the foreground and background colors for contrast */
+          color: var(--background);
+          background: var(--foreground);
+          /* Add some padding and border to make it "pop" */
+          padding: .5em 1em;
+          border: .1rem solid var(--background);
+          border-radius: 1em;
+          box-shadow: 0 0 .5em var(--foreground);
+        }
+      </style>
+      <blockquote>
+        Here is a sample blockquote that inverts the foreground and background colors for contrast.<br />
+        It also adds some padding and border to make it "pop".
+      </blockquote>
+    </div>
+  </template></code-sample>
+  <p>
+    This might also contain styles for <code>&lt;code&gt;</code> elements and <code>&lt;pre&gt;</code> elements.
+    Depending on the application, I might break these out into separate files or include more block-type elements in the same file.
+    For me, these divisions become very situational. 
+    It's not as cut & dry as I like most things to be, but as long as I keep "single-responsibility" and "separation-of-concerns" in mind, I can always break things out later with minimal refactoring efforts.
+  </p>
+</article>
