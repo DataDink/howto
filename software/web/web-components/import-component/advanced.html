@@ -74,10 +74,10 @@
             const srcStyle = this.srcStyle ?? src + '.css';
             const srcLayout = this.srcLayout ?? src + '.html';
             const srcScript = this.srcScript ?? src + '.js';
-            const style = srcStyle.length ? await (await fetch(srcStyle)).text() : '';
+            const style = srcStyle.length ? `&lt;style&gt;@import url('${srcStyle}');&lt;/style&gt;` : '';
             const layout = srcLayout.length ? await (await fetch(srcLayout)).text() : '';
             this.#shadow.innerHTML = `
-              &lt;style&gt;${style}&lt;/style&gt;
+              ${style}
               ${layout}
             `;
             if (srcScript.length) {

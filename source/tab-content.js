@@ -11,6 +11,10 @@ customElements.define('tab-content', class extends HTMLElement {
           height: max-content;
           min-height: 75vh;
         }
+        a.active {
+          color: var(--background-highlight);
+          background-color: var(--foreground-highlight);
+        }
       </style>
       <nav part="tabs"></nav>
       <import-component part="content"
@@ -21,11 +25,16 @@ customElements.define('tab-content', class extends HTMLElement {
     const target = shadow.querySelector('import-component');
     const nav = shadow.querySelector('nav');
     const tabs = [...this.querySelectorAll('a')].map(a => nav.appendChild(a));
-    target.srcLayout = tabs[0]?.href;
+    function select(tab) {
+      target.srcLayout = tab.href;
+      for (let t of tabs) { t.classList.remove('active'); }
+      tab.classList.add('active');
+    }
+    select(tabs[0]);
     for (let tab of tabs) {
       tab.addEventListener('click', event => {
         event.preventDefault();
-        target.srcLayout = event.target.href;
+        select(tab);
       });
     }
   }

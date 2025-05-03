@@ -1,0 +1,46 @@
+<article>
+  <h3>Composites</h3>
+  <p>
+    Once the theme, layout and various components are defined I can composite them together.
+  </p>
+  <code-sample language="css"><template>
+    @import url('theme.css');
+    @import url('layout.css');
+    @import url('blocks.css');
+    @import url('lists.css');
+    @import url('forms.css');
+    @import url('tables.css');
+  </template></code-sample>
+  <p>
+    Now, when I have a special-case I can swap these out.
+    For example, if I want a different page layout, 
+    I can either override with a <code>layout-different.css</code>:
+  </p>
+  <code-sample language="css"><template>
+    @import url('composite.css');
+    @import url('layout-different.css');
+  </template></code-sample>
+  <p>
+    Or I can create a new composite that includes the alternate layout:
+  </p>
+  <code-sample language="css"><template>
+    @import url('theme.css');
+    @import url('layout-different.css');
+    @import url('blocks.css');
+    @import url('lists.css');
+    @import url('forms.css');
+    @import url('tables.css');
+  </template></code-sample>
+  <p>
+    If everything in my design is overridable, 
+    I can create a base composite that can be used as a starting point for every other composite.
+    For example, I might have a <code>site.css</code> and then a page-specific composite: <code>index.css</code>.
+  </p>
+  <h3><em>index.css</em></h3>
+  <code-sample language="css"><template>
+    @import url('site.css'); /* The site's base-composite */
+    @import url('layout-different.css');
+    @import url('forms-inline.css');
+    /* ...other page-specific styles... */
+  </template></code-sample>
+</article>

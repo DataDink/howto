@@ -40,10 +40,10 @@ customElements.define('import-component', class extends HTMLElement {
       const srcStyle = this.srcStyle ?? src + '.css';
       const srcLayout = this.srcLayout ?? src + '.html';
       const srcScript = this.srcScript ?? src + '.js';
-      const style = srcStyle.length ? await (await fetch(srcStyle)).text() : '';
+      const style = srcStyle.length ? `<style>@import url('${srcStyle}');</style>` : '';
       const layout = srcLayout.length ? await (await fetch(srcLayout)).text() : '';
       this.#shadow.innerHTML = `
-        <style>${style}</style>
+        ${style}
         ${layout}
       `;
       if (srcScript.length) {

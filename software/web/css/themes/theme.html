@@ -21,7 +21,7 @@
     Instead, when building a palette, I want to use meaningful names that remain flexible for different situations.
   </p>
   <p>
-    My typical approach for this is to first break all colors out into <code>background</code> and <code>foreground</code> variables.
+    My approach for this is to first break all colors out into <code>background</code> and <code>foreground</code> variables.
     Every <code>foreground</code> color should be compatible with every <code>background</code> color.
   </p>
   <code-sample language="css"><template>
@@ -77,7 +77,7 @@
     }
   </template></code-sample>
   <p>
-    I will also set up default theme configurations for elements using these variables in the <code>theme.css</code>.
+    I will also set up some default theme configurations on base elements using these variables in the <code>theme.css</code>.
   </p>
   <code-sample language="css"><template>
     body {
@@ -94,7 +94,7 @@
   </template></code-sample>
   <h3>Scale</h3>
   <p>
-    The last thing I typically define in the <code>theme.css</code> is my scale.
+    The last thing I might define in the <code>theme.css</code> is my scale.
     I will usually create a single numeric variable that I base everything off of:
   </p>
   <code-sample language="css"><template>
