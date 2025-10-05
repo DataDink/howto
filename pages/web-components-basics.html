@@ -1,0 +1,73 @@
+<h4>software/web/web-components</h4>
+<section class="inline-notification">
+  <strong>Learn More:</strong>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components" target="_blank">
+    Web Components - MDN
+  </a>
+</section>
+<h2>Overview:</h2>
+<p>
+  If you are familiar with building web applications in 
+  <a href="https://react.dev/learn/thinking-in-react" target="_blank">React</a>
+  you will already have a component mindset.
+  Web Components are similar in that they allow you to create reusable components.
+  The benefit of Web Components, unlike React, is that they are a native browser feature.
+  This means you can use them anywhere with or without a framework.
+</p>
+<p>
+  Basically, Web Components let you extend HTML with your own custom elements.
+  You can define new HTML tags, encapsulate styles and behavior,
+  and create reusable components that can be used across different web applications.
+  They are built on three main technologies:
+  <ul>
+    <li>
+      <span>Custom Elements</span>
+      <small>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements" target="_blank">(learn more @ MDN)</a>
+      </small>
+    </li>
+    <li>
+      <span>Shadow DOM</span>
+      <small>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Shadow_DOM" target="_blank">(learn more @ MDN)</a>
+      </small>
+    </li>
+    <li>
+      <span>HTML Templates</span>
+      <small>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_templates_and_slots" target="_blank">(learn more @ MDN)</a>
+      </small>
+    </li>
+  </ul>
+</p>
+<h2>Creating A Web Component</h2>
+<p>
+  Custom Elements allow you to define your own HTML tags.
+  You start by creating a class that extends the built-in HTMLElement class.
+  <code-sample language="javascript" name="my-web-component.js"><template>
+    export default
+    /**
+      * @class MyWebComponent - An empty web component shell.
+      * @extends HTMLElement
+      */
+    class MyWebComponent extends HTMLElement {
+
+    }
+    customElements.define('my-web-component', MyWebComponent);
+  </template></code-sample>
+  The class is registered with the browser using the <code>customElements.define</code> method.
+  <a href="https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define" target="_blank">(Learn more about CustomElementRegistry @ MDN)</a>.
+</p>
+<h2>Using A Web Component</h2>
+<p>
+  Once you have defined your element, you can use it in your HTML just like any other HTML tag.
+  <code-sample language="html" name="web-component-usage.html" render-document><template>
+    <script type="module" src="./my-web-component.js"></script>
+    <my-web-component>
+      <p>
+        Here is my new web-component!
+        It doesn't do anything yet, but here it is!
+      </p>
+    </my-web-component>
+  </template></code-sample>
+</p>

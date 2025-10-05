@@ -1,0 +1,77 @@
+<h4>software/web/web-components/attributes</h4>
+<section class="inline-notification">
+  <strong>Learn More:</strong>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components" target="_blank">
+    Web Components - MDN
+  </a>
+</section>
+<h2>Adding Attributes</h2>
+<p>
+  Once you have a custom element defined, you can configure it to respond to attributes.
+  The <code>observedAttributes</code> static property on your class specifies which attributes you want to respond to.
+  <code-sample language="javascript" name="my-web-component.js"><template>
+    export default
+    /**
+      * @class MyWebComponent - A web component that responds to attributes.
+      * @extends HTMLElement
+      */
+    class MyWebComponent extends HTMLElement {
+      static get observedAttributes() { return ['my-attribute']; }
+
+      attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'my-attribute') { /*...*/ }
+      }
+    }
+    customElements.define('my-web-component', MyWebComponent);
+  </template></code-sample>
+  The <code>attributeChangedCallback</code> method is called whenever an observed attribute changes.
+  The method will also be called when the element is first created with an initial value.
+</p>
+<h2>Exposing Properties</h2>
+<p>
+  A nice-to-have for any web component is for the attributes to be exposed as properties on the element.
+  Often this just gets/sets a string, but sometimes you want to expose it as a number or boolean.
+  This is simply a matter of defining getters/setters as you normally would on the class.
+  <code-sample language="javascript" name="my-web-component.js"><template>
+    export default
+    /**
+      * @class MyWebComponent - A web component with properties.
+      * @extends HTMLElement
+      */
+    class MyWebComponent extends HTMLElement {
+      static get observedAttributes() { return ['normal-attribute', 'number-attribute', 'boolean-attribute']; }
+
+      /** @property {string} normalAttribute - A normal string attribute. */
+      get normalAttribute() { return this.getAttribute('normal-attribute'); }
+      set normalAttribute(value) { this.setAttribute('normal-attribute', value); }
+
+      /** @property {number} numberAttribute - A property that converts to/from a number. */
+      get numberAttribute() { return Number(this.getAttribute('number-attribute')); }
+      set numberAttribute(value) { this.setAttribute('number-attribute', Number(value)); }
+
+      /** @property {boolean} booleanAttribute - A property that is true if the attribute is present. */
+      get booleanAttribute() { return this.hasAttribute('boolean-attribute'); }
+      set booleanAttribute(value) { value ? this.setAttribute('boolean-attribute', '') : this.removeAttribute('boolean-attribute'); }
+
+      attributeChangedCallback(name, oldValue, newValue) {
+        switch (name) {
+          case 'normal-attribute':
+            // Handle normal attribute change
+            break;
+          case 'number-attribute':
+            // Validate the number attribute
+            const number = Number(newValue);
+            if (number.toString() !== newValue) { this.numberAttribute = newValue; }
+            break;
+          case 'boolean-attribute':
+            // Handle boolean attribute change
+            break;
+        }
+      }
+    }
+    customElements.define('my-web-component', MyWebComponent);
+  </template></code-sample>
+  Because the properties directly get and set the attribute values, the <code>attributeChangedCallback</code> is called.
+  If you want to ensure a property always has a valid value, you can add validation logic to the <code>attributeChangedCallback</code> callback
+  and it will trigger whether the attribute is set by code, or set in the document.
+</p>

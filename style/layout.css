@@ -1,5 +1,7 @@
+* { box-sizing: border-box; }
+
 html, body, main, header, footer, section, article, aside, nav, menu {
-  flex: 1;
+  flex: 1 1 auto;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -9,6 +11,7 @@ html, body, main, header, footer, section, article, aside, nav, menu {
   min-height: 0;
   margin: 0;
   padding: 0;
+  gap: 1em;
 }
 
 html, body {
@@ -19,55 +22,94 @@ html, body {
 
 header, footer, main, section, nav { flex-direction: row; }
 
-header, footer, aside, nav, menu { 
-  flex: 0; 
-  min-width: min-content;
-  min-height: min-content;
-}
-
-header, footer {
-  justify-content: space-between;
+header, footer { 
+  flex: 0 0 auto; 
+  justify-content: space-around;
   align-items: stretch;
+}
+
+main {
+  padding: 0;
+  gap: 2em;
+  justify-content: center;
+}
+
+article {
   padding: 0 1em;
-  background: var(--foreground);
-  color: var(--background);
-  box-shadow: 0 0 1em black;
-}
-
-article, aside { 
-  padding: 0.5em 1em; 
-  min-height: max-content;
-}
-
-article { 
-  align-items: center; 
-  max-width: 50rem;
-  justify-self: stretch;
-}
-
-main { 
-  justify-content: center;
-}
-
-main, section {
   overflow-y: auto;
-  align-items: flex-start;
+  max-width: 50em;
 }
 
-menu a, nav a {
-  color: inherit;
-  display: flex;
-  padding: 0.5em 1em;
-  align-items: center;
+aside {
+  flex: 0 0 auto;
+  width: max-content;
+  padding: 0 1em;
+  overflow-y: auto;
+}
+
+nav, menu {
+  flex: 0 0 auto;
   justify-content: center;
-  flex: 1;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 1em;
 }
 
-menu a:hover, nav a:hover {
-  color: var(--background-highlight);
-  background: var(--foreground-highlight);
+nav a, menu a {
+  flex: 0 0 auto;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em 1em;
+  margin: 0;
 }
 
-nav *:not(:first-child) {
-  border-left: .1rem solid var(--foreground);
+aside nav {
+  flex-direction: column;
+}
+
+ul {
+  list-style-type: none;
+  list-style-position: outside;
+  padding: 0;
+  margin: 0;
+}
+
+ul > li { padding: 0 0 0 1em; }
+
+aside ul > li { padding: 0; }
+
+nav ul > li > a {
+  display: block;
+}
+
+ul > li > a::before {
+  content: '>';
+  display: block;
+  margin: 0;
+  padding: 0 1em 0 0;
+  float: left;
+}
+@media (max-aspect-ratio: 3/2) {
+  main { flex-direction: column; }
+  article { max-width: unset; }
+  main > aside {
+    flex: 1 0 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: .6em;
+  }
+  main > aside nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  main > aside nav ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  main > aside nav ul a::before { display: none; }
 }

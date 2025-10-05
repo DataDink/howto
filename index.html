@@ -1,53 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="/howto/site.css">
-    <script type="module" src="/howto/site.js"></script>
+    <link rel="stylesheet" href="./site.css">
+    <script type="module" src="./site.js"></script>
   </head>
   <body>
     <header>
       <h1>
-        <a href="https://greenwald.me" target="_blank">Greenwald's</a>
-        <a href="/howto">How To's</a>
+        Greenwald's Thoughts
       </h1>
       <nav>
+        <a href="https://greenwald.me/#main-content=%2Fpages%2FAboutPage.html" target="_blank">About</a>
         <a href="https://github.com/DataDink/howto" target="_blank">Contribute</a>
+        <a href="https://greenwald.me/#main-content=%2Fpages%2FContactPage.html" target="_blank">Contact</a>
       </nav>
     </header>
     <main>
+      <aside>
+        <src-nav for="article" hash-name="article">
+          <nav>
+            <h4>Software</h4>
+            <ul>
+              <li><a default href="./pages/web-components-basics.html">Web Components: Basics</a></li>
+              <li><a default href="./pages/web-components-attributes.html">Web Components: Attributes</a></li>
+            </ul>
+          </nav>
+        </src-nav>
+      </aside>
       <article>
-        <p>
-          A collection of how to's for all the stuff I am in to.
-        </p>
-        <menu>
-          <ul>
-            <li>
-              <h3>Software: Web</h3>
-              <ul>
-                <li>
-                  <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components" target="_blank">
-                    Web Components: (MDN) The Basics
-                  </a>
-                </li>
-                <li>
-                  <a href="/howto/software/web/web-components/import-component/">
-                    Web Components: Import-Component
-                  </a>
-                </li>
-                <li>
-                  <a href="/howto/software/web/css/themes/">
-                    CSS: Themes
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </menu>
+        <inline-import id="article" import-before></inline-import>
       </article>
     </main>
     <footer>
-      <a href="https://greenwald.me/#page=Contact" target="_blank"><em>contact</em></a>
-      <a href="https://github.com/DataDink/howto" target="_blank"><em>contribute</em></a>
+      <h6>A collection of how to's for all the stuff I am in to.</h6>
     </footer>
   </body>
 </html>

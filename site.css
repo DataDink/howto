@@ -1,4 +1,6 @@
-@import url('/howto/style/theme.css');
-@import url('/howto/style/layout.css');
-@import url('/howto/style/lists.css');
-@import url('/howto/style/blocks.css');
+@import url('./style/theme.css');
+@import url('./style/layout.css');
+@import url('./style/text.css');
+@import url('./style/lists.css');
+@import url('./style/blocks.css');
+@import url('./style/components/code-sample.css');

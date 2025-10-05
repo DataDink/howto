@@ -1,24 +1,28 @@
+body > header, body > footer { 
+  background-color: var(--foreground);
+  color: var(--background);
+}
 
-blockquote {
+.inline-notification {
   background: var(--background-safe);
   border: .1rem solid var(--foreground-safe);
   color: var(--foreground-safe);
 }
 
-blockquote.warning {
+.inline-notification.warning {
   background: var(--background-warning);
   border: .1rem solid var(--foreground-warning);
   color: var(--foreground-warning);
 }
 
-blockquote.danger {
+.inline-notification.danger {
   background: var(--background-danger);
   border: .1rem solid var(--foreground-danger);
   color: var(--foreground-danger);
 }
 
-blockquote {
-  width: 100%;
+.inline-notification {
+  flex: 0 0 auto;
   margin: 1em 0;
   padding: 0.5em 1em;
   border-radius: 1rem;
@@ -32,7 +36,7 @@ blockquote {
   gap: 1em;
 }
 
-blockquote::before {
+.inline-notification::before {
   content: '?';
   display: flex;
   align-items: center;
@@ -48,12 +52,14 @@ blockquote::before {
   margin: 0; padding: 0;
 }
 
-blockquote.warning::before { content: '\27C1'; }
+.inline-notification.warning::before { content: '\27C1'; }
 
-blockquote.danger::before { content: '!'; }
+.inline-notification.danger::before { content: '!'; }
 
 code { 
-  background: color-mix(in srgb, var(--background-highlight) 20%, transparent); 
+  color: var(--background);
+  background: color-mix(in srgb, var(--foreground) 80%, transparent); 
   display: inline-block;
   white-space: pre;
+  padding: 0.25em 0.5em;
 }

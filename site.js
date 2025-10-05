@@ -1,3 +1,3 @@
-import * as CODESAMPLE from '/howto/source/code-sample.js';
-import * as IMPORTCOMPONENT from '/howto/source/import-component.js';
-import * as TABCONTENT from '/howto/source/tab-content.js';
+import INLINEIMPORT from './components/inline-import.js';
+import SRCNAV from './components/src-nav.js';
+import CODESAMPLE from './components/code-sample.js';
