@@ -90,11 +90,12 @@ ul > li > a::before {
   padding: 0 1em 0 0;
   float: left;
 }
-@media (max-aspect-ratio: 3/2) {
+
+@media (max-aspect-ratio: 7/5) {
   main { flex-direction: column; }
   article { max-width: unset; }
   main > aside {
-    flex: 1 0 auto;
+    flex: 0 0 auto;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;

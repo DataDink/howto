@@ -46,3 +46,4 @@ header a.active, footer a.active, nav a.active {
 
 em { font-style: italic; }
 strong { font-weight: bold; }
+p { margin: 0; }
