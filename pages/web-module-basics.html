@@ -43,15 +43,57 @@
 <p>
   Custom Elements allow you to define your own HTML tags.
   You start by creating a class that extends the built-in HTMLElement class.
-  <code-sample language="javascript" name="custom-element-shell.js"><template>
+  <code-sample language="javascript" name="web-component-shell.js"><template>
     export default
     /**
-      * @class MyCustomElement
+      * @class MyWebComponent - An empty web component shell.
       * @extends HTMLElement
       */
-    class MyCustomElement extends HTMLElement {
+    class MyWebComponent extends HTMLElement {
 
     }
-    customElements.define('my-custom-element', MyCustomElement);
+    customElements.define('my-web-component', MyWebComponent);
   </template></code-sample>
+  The class is then registered with the browser using the <code>customElements.define</code> method.
+  <a href="https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define" target="_blank">(Learn more about CustomElementRegistry @ MDN)</a>.
+</p>
+<h2>Custom Attributes</h2>
+<p>
+  Adding custom attributes to your elements helps make your element more configurable and declarative.
+  You can define the attributes you want to use and whether to respond to their value changes.
+  <code-sample language="javascript" name="custom-attributes.js"><template>
+    export default
+    /**
+      * @class MyWebComponent - An empty web component shell.
+      * @extends HTMLElement
+      */
+    class MyWebComponent extends HTMLElement {
+      static get observedAttributes() { return ['my-custom-attribute']; }
+
+      attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'my-custom-attribute') { /*...*/ }
+      }
+    }
+    customElements.define('my-web-component', MyWebComponent);
+  </template></code-sample>
+  It's also a good idea to define properties on your class to make your attributes more discoverable and easier to work with.
+  <code-sample language="javascript" name="custom-attributes.js"><template>
+    export default
+    /**
+      * @class MyWebComponent - An empty web component shell.
+      * @extends HTMLElement
+      */
+    class MyWebComponent extends HTMLElement {
+      static get observedAttributes() { return ['my-custom-attribute']; }
+
+      get myCustomAttribute() { return this.getAttribute('my-custom-attribute'); }
+      set myCustomAttribute(value) { this.setAttribute('my-custom-attribute', value); }
+
+      attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'my-custom-attribute') { /*...*/ }
+      }
+    }
+    customElements.define('my-web-component', MyWebComponent);
+  </template></code-sample>
+
 </p>

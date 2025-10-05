@@ -57,7 +57,9 @@ body > header, body > footer {
 .inline-notification.danger::before { content: '!'; }
 
 code { 
-  background: color-mix(in srgb, var(--background-highlight) 20%, transparent); 
+  color: var(--background);
+  background: color-mix(in srgb, var(--foreground) 80%, transparent); 
   display: inline-block;
   white-space: pre;
+  padding: 0.25em 0.5em;
 }
