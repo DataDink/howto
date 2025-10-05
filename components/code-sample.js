@@ -10,7 +10,7 @@ export default
  * @description A custom element for displaying code samples using PrismJS for syntax highlighting.
  */
 class CodeSample extends HTMLElement {
-  static get observedAttributes() { return ['src', 'language', 'show-preview']; }
+  static get observedAttributes() { return ['src', 'language', 'show-preview', 'render-document']; }
   static get supportedMarkup() { return ['html', 'xml', 'svg', 'markup', 'mathml', 'ssml', 'atom', 'rss']; }
   
   /** @property {DocumentFragment} content - The ShadowDom fragment of this control. */
@@ -31,7 +31,10 @@ class CodeSample extends HTMLElement {
   /** @property {boolean} showPreview - Specifies if a preview should be generated for the content. */
   get showPreview() { return this.hasAttribute('show-preview'); }
   set showPreview(value) { value ? this.setAttribute('show-preview', '') : this.removeAttribute('show-preview'); }
-  
+  /** @property {boolean} renderDocument - If rendering markup, the render will include the entire document. */
+  get renderDocument() { return this.hasAttribute('render-document'); }
+  set renderDocument(value) { value ? this.setAttribute('render-document', '') : this.removeAttribute('render-document'); }
+
   constructor() {
     super();
     this.content.innerHTML = `
@@ -103,7 +106,7 @@ class CodeSample extends HTMLElement {
    */
   async render(content) {
     const code = CodeSample.supportedMarkup.includes(CodeSample.detectLanguage(this))
-      ? CodeSample.formatMarkup(content)
+      ? CodeSample.formatMarkup(content, this.renderDocument)
       : CodeSample.formatText(content);
     const lang = CodeSample.detectLanguage(this);
     this.code.setAttribute('class', 'language-' + lang);
@@ -133,10 +136,12 @@ class CodeSample extends HTMLElement {
    * @static
    * @method formatMarkup - Formats whitespace for markup text.
    * @param {string} markup - The markup to format.
+   * @param {boolean} [renderDocument=false] - If true, the entire document will be rendered, otherwise only the body.
    * @returns {string} - The formatted markup.
    */
-  static formatMarkup(markup) {
-    const nodes = [...new DOMParser().parseFromString(markup, 'text/html').body.childNodes];
+  static formatMarkup(markup, renderDocument = false) {
+    const dom = new DOMParser().parseFromString(markup, 'text/html');
+    const nodes = [...(renderDocument ? dom.childNodes : dom.body.childNodes)];
     return CodeSample.#formatNodes(nodes).trim();
   }
   static #formatNodes(nodes, indent = 0) {
