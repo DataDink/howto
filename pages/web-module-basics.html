@@ -1,0 +1,57 @@
+<section class="inline-notification">
+  <strong>Learn More:</strong>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components" target="_blank">
+    Web Components - MDN
+  </a>
+</section>
+<h2>Overview:</h2>
+<p>
+  If you are familiar with building web applications in 
+  <a href="https://react.dev/learn/thinking-in-react" target="_blank">React</a>
+  you will already have a component mindset.
+  Web Components are similar in that they allow you to create reusable components.
+  The benefit of Web Components, unlike React, is that they are a native browser feature.
+  This means you can use them anywhere with or without a framework.
+</p>
+<p>
+  Basically, Web Components let you extend HTML with your own custom elements.
+  You can define new HTML tags, encapsulate styles and behavior,
+  and create reusable components that can be used across different web applications.
+  They are built on three main technologies:
+  <ul>
+    <li>
+      <span>Custom Elements</span>
+      <small>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements" target="_blank">(learn more @ MDN)</a>
+      </small>
+    </li>
+    <li>
+      <span>Shadow DOM</span>
+      <small>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components/Shadow_DOM" target="_blank">(learn more @ MDN)</a>
+      </small>
+    </li>
+    <li>
+      <span>HTML Templates</span>
+      <small>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_templates_and_slots" target="_blank">(learn more @ MDN)</a>
+      </small>
+    </li>
+  </ul>
+</p>
+<h2>Custom Elements</h2>
+<p>
+  Custom Elements allow you to define your own HTML tags.
+  You start by creating a class that extends the built-in HTMLElement class.
+  <code-sample language="javascript" name="custom-element-shell.js"><template>
+    export default
+    /**
+      * @class MyCustomElement
+      * @extends HTMLElement
+      */
+    class MyCustomElement extends HTMLElement {
+
+    }
+    customElements.define('my-custom-element', MyCustomElement);
+  </template></code-sample>
+</p>
