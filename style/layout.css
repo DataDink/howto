@@ -90,3 +90,26 @@ ul > li > a::before {
   padding: 0 1em 0 0;
   float: left;
 }
+@media (max-aspect-ratio: 3/2) {
+  main { flex-direction: column; }
+  article { max-width: unset; }
+  main > aside {
+    flex: 1 0 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: .6em;
+  }
+  main > aside nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  main > aside nav ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  main > aside nav ul a::before { display: none; }
+}
