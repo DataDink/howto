@@ -1,4 +1,4 @@
-<h1>React & Typescript Are Obsolete!</h1>
+<h1>React & Typescript Are Obsolete! <small>article in progress...</small></h1>
 <p>
   It's controversial, I know, but hear me out.
   I'm not saying React is bad, or that Typescript did not serve a purpose.
@@ -17,7 +17,7 @@
 </p>
 <p>
   Let's compare a React component to a web component:<br />
-  React development typically uses JSX, which blurs the lines between content and functionality violating common software engineering principles.
+  React development typically uses JSX, which blurs the lines between content and functionality, violating common software engineering principles.
   Here's a simple button that triggers an alert when clicked using a message from a prop named `message`:
   <code-sample language="jsx"><template>
     export default
@@ -31,7 +31,7 @@
     }
   </template></code-sample>
 
-  In contrast, a web component registers a custom element that can be used anywhere - even in React apps:
+  In contrast, here is a web component that registers a custom element that can be used anywhere - even in React apps:
   <code-sample language="javascript"><template>
     export default class AlertButton extends HTMLElement {
       get message() { return this.getAttribute('message'); }
