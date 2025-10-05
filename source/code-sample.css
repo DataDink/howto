@@ -1,4 +1,5 @@
 @import '/howto/style/theme.css';
+@import '/howto/style/text.css';
 @import '/howto/source/prism.css';
 :host {
   position: relative;

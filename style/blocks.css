@@ -1,3 +1,7 @@
+body > header, body > footer { 
+  background-color: var(--foreground);
+  color: var(--background);
+}
 
 blockquote {
   background: var(--background-safe);
