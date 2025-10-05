@@ -11,7 +11,45 @@
 </p>
 <p>
   And what's the motivation to move on?
-  Most of the developers in the wild know one way to make a web app and have never even heard of modern web standards like Web Components.
+  Most React developers in the wild know one way to make a web app and have never even heard of modern web standards like Web Components.
   The irony is that the patterns that drive React are the same patterns that Web Components use.
   The difference is that React codebases only work with other React codebases, while Web Components can be used anywhere and are far less-likely to become obsolete.
 </p>
+<p>
+  Let's compare a React component to a web component:<br />
+  React development typically uses JSX, which blurs the lines between content and functionality violating common software engineering principles.
+  Here's a simple button that triggers an alert when clicked using a message from a prop named `message`:
+  <code-sample language="jsx"><template>
+    export default
+    
+    function AlertButton({ message }) {
+      return (
+        &lt;button onClick={() => alert(message)}&gt;
+          Click me!
+        &lt;/button&gt;
+      );
+    }
+  </template></code-sample>
+
+  In contrast, a web component registers a custom element that can be used anywhere - even in React apps:
+  <code-sample language="javascript"><template>
+    export default class AlertButton extends HTMLElement {
+      get message() { return this.getAttribute('message'); }
+      constructor() {
+        super();
+        this.addEventListener('click', () => alert(this.message));
+      }
+    }
+    customElements.define('alert-button', AlertButton);
+  </template></code-sample>
+</p>
+<p>
+  When used, both of these manifest as a custom element in code:
+  <code-sample language="html"><template>
+    <!-- REACT -->
+     <AlertButton message="Hello!"></AlertButton>
+    <!-- WEB COMPONENT -->
+     <alert-button message="Hello!"></alert-button>
+  </template></code-sample>
+</p>
+<em>This article is incomplete... more to come...</em>
