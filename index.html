@@ -16,38 +16,22 @@
       </nav>
     </header>
     <main>
+      <aside>
+        <src-nav for="article" hash-name="article">
+          <nav>
+            <h4>Software</h4>
+            <ul>
+              <li><a default href="./pages/test.html">Web Modules: Basics</a></li>
+            </ul>
+          </nav>
+        </src-nav>
+      </aside>
       <article>
-        <header>
-          <em>
-            A collection of how to's for all the stuff I am in to.
-          </em>
-        </header>
-        <section>
-          <aside>
-            <h3>Articles:</h3>
-            <src-nav hashname="articles" for="article">
-              <ul>
-                <li>
-                  <h4>Software</h4>
-                  <ul>
-                    <li><a href="">Web: ES6 Modules</a></li>
-                  </ul>
-                </li>
-                <li>
-                  <h4>3D Printing</h4>
-                </li>
-                <li>
-                  <h4>Woodworking</h4>
-                </li>
-              </ul>
-            </src-nav>
-          </aside>
-          <inline-import id="article"></inline-import>
-        </section>
+        <inline-import id="article" import-before></inline-import>
       </article>
     </main>
     <footer>
-      <small>&copy; 2025 Someone Somewhere</small>
+      <h6>A collection of how to's for all the stuff I am in to.</h6>
     </footer>
   </body>
 </html>

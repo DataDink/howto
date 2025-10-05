@@ -41,6 +41,7 @@ class InlineImport extends HTMLElement {
   static async attach(component) {
     if (!(component instanceof InlineImport)) { throw new TypeError('Expected an instance of InlineImport'); }
     component.#attached = true;
+    if (!component.src) { return; }
     const path = component.src.split('?')[0].split('#')[0];
     const text = await fetch(path).then(async r => r.ok ? (await r.text()) : null);
     if (text == null) { throw new Error(`Failed to load content from ${path}`); }
