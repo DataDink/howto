@@ -105,7 +105,10 @@ ul > li > a::before {
     align-items: center;
     font-size: .75em;
     width: auto;
+    max-height: 5em;
+    overflow-x: auto;
     background: color-mix(in srgb, var(--foreground) 25%, transparent);
+    box-shadow: inset 0 -1em 2em -1.5em var(--foreground);
   }
   main > aside nav {
     flex-direction: row;
