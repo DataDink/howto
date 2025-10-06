@@ -92,14 +92,20 @@ ul > li > a::before {
 }
 
 @media (max-aspect-ratio: 7/5) {
-  main { flex-direction: column; }
+  body { gap: 0; }
+  main { 
+    flex-direction: column; 
+    gap: .25em;
+  }
   article { max-width: unset; }
   main > aside {
     flex: 0 0 auto;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    font-size: .6em;
+    font-size: .75em;
+    width: auto;
+    background: color-mix(in srgb, var(--foreground) 25%, transparent);
   }
   main > aside nav {
     flex-direction: row;
