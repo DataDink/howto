@@ -1,0 +1,38 @@
+<section class="inline-notification">
+  <strong>Learn More:</strong>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components" target="_blank">
+    Web Components - MDN
+  </a>
+</section>
+<h2>The Shadow DOM</h2>
+<p>
+  The Shadow DOM is a web standard that allows developers to encapsulate a part of the DOM and CSS styles, creating a separate, isolated scope for a component. 
+  This means that styles defined within the shadow DOM do not affect the main document and vice versa, which helps in avoiding style conflicts and enhances modularity in web development.
+  This also applies to functionality, as scripts operating outside of the shadow DOM will not directly affect elements within it.
+</p>
+<p>
+  A shadow DOM can be attached to any HTML element, but it is most useful for custom elements.
+  To attach a shadow DOM to an element, call the <code>attachShadow</code> method on the element to create a new root.
+  <code-sample language="javascript"><template>
+    export default
+    /**
+     * A simple web component that uses Shadow DOM.
+     * This component creates a shadow root and adds some content to it.
+     */
+    class MyWebComponent extends HTMLElement {
+      constructor() {
+        super();
+        // Create a shadow root
+        this.attachShadow({ mode: 'open' });
+        // Add some content to the shadow DOM
+        this.shadowRoot.innerHTML = `
+          <style>
+            p { color: blue; }
+          </style>
+          <p>This is inside the shadow DOM!</p>
+        `;
+      }
+    }
+  </template></code-sample>
+</p>
+<small>This article is incomplete, more to come soon...</small>
