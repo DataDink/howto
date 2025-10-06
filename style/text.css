@@ -1,9 +1,11 @@
 html, body {
   color: var(--foreground);
-  background: color-mix(in srgb, var(--background) 80%, green);
   font-size: calc(var(--scale) * 2.5vmin);
   font-family:'Trebuchet MS';
 }
+
+body { background: url('../assets/backdrop.png') repeat fixed; }
+main { background: color-mix(in srgb, var(--background) 50%, transparent); }
 
 h1, h2, h3, h4, h5, h6 {
   color: inherit;

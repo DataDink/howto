@@ -34,7 +34,7 @@ code-sample::part(button) {
   border: 1px solid var(--background);
   border-radius: 1em;
   cursor: pointer;
-  font-size: 0.75em;
+  font-size: 0.5em;
 }
 
 code-sample::part(button):hover {

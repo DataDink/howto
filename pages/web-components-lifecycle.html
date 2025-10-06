@@ -1,0 +1,79 @@
+<section class="inline-notification">
+  <strong>Learn More:</strong>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components" target="_blank">
+    Web Components - MDN
+  </a>
+</section>
+<h2>Web Component Lifecycle</h2>
+<p>
+  Understanding the lifecycle of a custom element will helps to better manage its behavior and performance.
+  The primary lifecycle events that can be hooked into are:
+  <ul>
+    <li>
+      <code>constructor</code> - Called when the element is created.
+    </li>
+    <li>
+      <code>connectedCallback</code> - Called when the element is added to the document.
+    </li>
+    <li>
+      <code>disconnectedCallback</code> - Called when the element is removed from the document.
+    </li>
+    <li>
+      <code>adoptedCallback</code> - Called when the element is moved to a new document.
+    </li>
+  </ul> 
+</p>
+<p>
+  These special methods are optionally defined directly on your custom element class.
+  Not defining them is perfectly fine, but if you do, they will be automagically called at the appropriate times.
+  <code-sample language="javascript" name="my-web-component.js"><template>
+    export default
+    /**
+      * @class MyWebComponent - A web component with lifecycle hooks set up.
+      * @extends HTMLElement
+      */
+    class MyWebComponent extends HTMLElement {
+      constructor() {
+        super();
+        // Initialization logic here
+      }
+      connectedCallback() {
+        // Called when the element is added to the document
+      }
+      disconnectedCallback() {
+        // Called when the element is removed from the document
+      }
+      adoptedCallback() {
+        // Called when the element is moved to a new document
+      }
+    }
+    customElements.define('my-web-component', MyWebComponent);
+  </template></code-sample>
+</p>
+<h2>Constructor</h2>
+<p>
+  The <code>constructor</code> is where you can initialize your component's state.
+  It is called when the element is created, but it is important to note that the DOM is not yet ready at this point.
+  Therefore, you should avoid any DOM manipulation in the constructor.
+  What that means is it will not yet be a part of the DOM and any content to be contained within the element
+  will not yet be available.
+  You can, however, set up event listeners and initialize properties on the element itself.
+</p>
+<h2>Connected Callback</h2>
+<p>
+  The <code>connectedCallback</code> is called when the element is added to the document.
+  This is where you can perform any setup that requires the element to be in the DOM, such as adding event listeners or manipulating the DOM.
+  It is also a good place to start any asynchronous operations that depend on the element being in the document.
+</p>
+<h2>Disconnected Callback</h2>
+<p>
+  The <code>disconnectedCallback</code> is called when the element is removed from the document.
+  This is where you should clean up any resources that are no longer needed, such as removing event listeners or stopping timers.
+  Failing to do this can lead to memory leaks and other performance issues.
+</p>
+<h2>Adopted Callback</h2>
+<p>
+  The <code>adoptedCallback</code> is called when the element is moved to a new document.
+  This can happen when the element is moved between different browsing contexts, such as iframes or shadow DOMs.
+  This is best used when there is one-time setup that needs to be happen per document.
+</p>
