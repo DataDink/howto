@@ -35,4 +35,16 @@
     }
   </template></code-sample>
 </p>
+<p>
+  Of course, a web component doesn't need to attach a shadow DOM and only needs to do so for isolation from the surrounding DOM.
+  For example, a navigation component may not want to prevent its anchor elements from being styled with the rest of the document.
+  This is as simple as adding anchor elements into the custom element and <em>not</em> attaching a shadowDOM.
+  <code-sample language="html"><template>
+    <custom-nav-component>
+      <a href="path/to/location-1">Location 1</a>
+      <a href="path/to/location-2">Location 2</a>
+      <a href="path/to/location-3">Location 3</a>
+    </custom-nav-component>
+  </template></code-sample>
+</p>
 <small>This article is incomplete, more to come soon...</small>
