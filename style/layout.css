@@ -36,7 +36,7 @@ main {
 }
 
 article {
-  padding: 0 1em;
+  padding: 1em;
   overflow-y: auto;
   max-width: 50em;
 }
@@ -44,7 +44,7 @@ article {
 aside {
   flex: 0 0 auto;
   width: max-content;
-  padding: 0 1em;
+  padding: 1em;
   overflow-y: auto;
 }
 
@@ -90,32 +90,4 @@ ul > li > a::before {
   margin: 0;
   padding: 0 1em 0 0;
   float: left;
-}
-
-@media (max-aspect-ratio: 7/5) {
-  main { 
-    flex-direction: column; 
-    gap: .25em;
-  }
-  article { max-width: unset; }
-  main > aside {
-    flex: 0 0 auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    font-size: .75em;
-    width: auto;
-  }
-  main > aside nav {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  main > aside nav ul {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  main > aside nav ul a::before { display: none; }
 }

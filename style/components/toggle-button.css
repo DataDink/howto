@@ -1,0 +1,21 @@
+toggle-button {
+  display: inline-flex;
+  justify-content: stretch;
+  align-items: stretch;
+  padding: 0;
+  margin: 0 0.5em;
+  border: 1px solid var(--foreground);
+  border-radius: 1em;
+}
+toggle-button::part(button) {
+  background: transparent;
+  border: none;
+  padding: 0.5em 2em;
+  color: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+toggle-button::part(button):hover {
+  background: color-mix(in srgb, var(--background-highlight) 50%, transparent);
+}
+
