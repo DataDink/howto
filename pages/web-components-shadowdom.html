@@ -6,12 +6,12 @@
 </section>
 <h2>The Shadow DOM</h2>
 <p>
-  The Shadow DOM is a web standard that allows developers to encapsulate a part of the DOM and CSS styles, creating a separate, isolated scope for a component. 
+  The Shadow DOM is a web standard that allows developers to encapsulate a fragment of DOM and CSS styles, creating a separate and isolated scope for a component. 
   This means that styles defined within the shadow DOM do not affect the main document and vice versa, which helps in avoiding style conflicts and enhances modularity in web development.
-  This also applies to functionality, as scripts operating outside of the shadow DOM will not directly affect elements within it.
+  This also applies to functionality, as scripts operating on elements outside of the shadow DOM will not directly affect elements within it.
 </p>
 <p>
-  A shadow DOM can be attached to any HTML element, but it is most useful for custom elements.
+  A shadow DOM fragment can be attached to any HTML element, but it is most useful for custom elements.
   To attach a shadow DOM to an element, call the <code>attachShadow</code> method on the element to create a new root.
   <code-sample language="javascript"><template>
     export default

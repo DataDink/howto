@@ -70,7 +70,7 @@
     }
     customElements.define('my-web-component', MyWebComponent);
   </template></code-sample>
-  Because the properties directly get and set the attribute values, the <code>attributeChangedCallback</code> is called.
+  Because the properties are reading and writing to the attribute values, the <code>attributeChangedCallback</code> is called.
   If you want to ensure a property always has a valid value, you can add validation logic to the <code>attributeChangedCallback</code> callback
   and it will trigger whether the attribute is set by code, or set in the document.
 </p>

@@ -6,7 +6,7 @@
 </section>
 <h2>Web Component Lifecycle</h2>
 <p>
-  Understanding the lifecycle of a custom element will helps to better manage its behavior and performance.
+  Understanding the lifecycle of a custom element helps to better manage its behavior and performance.
   The primary lifecycle events that can be hooked into are:
   <ul>
     <li>
@@ -62,7 +62,7 @@
 <h2>Connected Callback</h2>
 <p>
   The <code>connectedCallback</code> is called when the element is added to the document.
-  This is where you can perform any setup that requires the element to be in the DOM, such as adding event listeners or manipulating the DOM.
+  This is where you can perform any setup that requires the element to be in the DOM, such as adding event listeners to, or manipulating content in the DOM.
   It is also a good place to start any asynchronous operations that depend on the element being in the document.
 </p>
 <h2>Disconnected Callback</h2>
@@ -75,5 +75,5 @@
 <p>
   The <code>adoptedCallback</code> is called when the element is moved to a new document.
   This can happen when the element is moved between different browsing contexts, such as iframes or shadow DOMs.
-  This is best used when there is one-time setup that needs to be happen per document.
+  This is best used when there is one-time setup that needs to happen per document.
 </p>
