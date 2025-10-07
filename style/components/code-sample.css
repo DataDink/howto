@@ -10,7 +10,7 @@ code-sample {
   color: var(--background);
   border-radius: 1em;
   gap: 0;
-  margin: .5em 0
+  margin: 1em 0
 }
 
 code-sample::part(menu) {
