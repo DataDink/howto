@@ -1,30 +1,31 @@
-<h1>React & Typescript Are Obsolete! <small>article in progress...</small></h1>
+<h1>React is Obsolete! <small>article in progress...</small></h1>
 <p>
   It's controversial, I know, but hear me out.
-  I'm not saying React is bad, or that Typescript did not serve a purpose.
-  I am saying that, like JQUERY, the modern web landscape has evolved and surpassed the need for these technologies.
+  I'm not saying React is bad.
+  I am saying that, like JQUERY, the modern web landscape has evolved and surpassed the need for it.
 </p>
 <p>
-  I'm not just picking on React and Typescript either.
+  I'm not just picking on React either.
   Many frameworks can be discarded in favor of simpler solutions with less bloat, complexity, and overhead.
   Unfortunately trends like React and Typescript have become so entrenched that it is difficult to convince developers to move on.
 </p>
 <p>
   And what's the motivation to move on?
-  Most React developers in the wild know one way to make a web app and have never even heard of modern web standards like Web Components.
-  The irony is that the patterns that drive React are the same patterns that Web Components use.
+  Most React developers in the wild only know React and have never even heard of modern web standards like Web Components.
+  Further more, many React devs are also only surrounding themselves with other React devs which creates an echo chamber that reinforces the idea that React is the only way to build web applications.
+  The irony is that many of the patterns that drive React are the same patterns that Web Components are built on.
   The difference is that React codebases only work with other React codebases, while Web Components can be used anywhere and are far less-likely to become obsolete.
 </p>
 <p>
   Let's compare a React component to a web component:<br />
-  React development typically uses JSX, which blurs the lines between content and functionality, violating common software engineering principles.
+  React development typically uses JSX, which blurs the lines between content and functionality. 
+  Unfortunately this makes React somewhat of an anti-pattern, but let's ignore that for now.
   Here's a simple button that triggers an alert when clicked using a message from a prop named `message`:
   <code-sample language="jsx"><template>
-    export default
-    
-    function AlertButton({ message }) {
+    import React from 'react';
+    export function AlertButton(props) {
       return (
-        &lt;button onClick={() => alert(message)}&gt;
+        &lt;button onClick={() => alert(props.message)}&gt;
           Click me!
         &lt;/button&gt;
       );
@@ -45,11 +46,11 @@
 </p>
 <p>
   When used, both of these manifest as a custom element in code:
-  <code-sample language="html"><template>
-    <!-- REACT -->
-     <AlertButton message="Hello!"></AlertButton>
-    <!-- WEB COMPONENT -->
-     <alert-button message="Hello!"></alert-button>
+  <code-sample language="text"><template>
+    &lt;!-- REACT --&gt;
+    &lt;AlertButton message="Hello!">&lt;/AlertButton>
+    &lt;!-- WEB COMPONENT --&gt;
+    &lt;alert-button message="Hello!">&lt;/alert-button>
   </template></code-sample>
 </p>
 <em>This article is incomplete... more to come...</em>
