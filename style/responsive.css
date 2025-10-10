@@ -5,7 +5,8 @@
   border: 1px solid var(--foreground);
   border-top: none;
   border-radius: 0 0 1em 1em;
-  font-size: .75em;
+  font-size: 1.25em;
+  gap: 0.25em;
 }
 
 @media (max-aspect-ratio: 7/5) {
@@ -19,25 +20,32 @@
     flex: 0 0 auto;
     flex-direction: column;
     align-items: center;
-    font-size: .75em;
+    font-size: 1em;
     width: auto;
     overflow: visible;
     padding: 0;
   }
   #page-nav-toggle { display: flex; }
   #page-nav:not([toggled]) { display: none; }
-
+  #page-nav h1, #page-nav h2, #page-nav h3, #page-nav h4, #page-nav h5, #page-nav h6 {
+    margin: 0;
+    flex: 0 0 100%;
+    text-align: center;
+  }
   #page-nav nav {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
+    justify-content: center;
     min-height: max-content;
     background: inherit;
     border-bottom: 1px solid var(--foreground);
+    gap: 0.25em;
   }
   #page-nav nav ul {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     flex-wrap: wrap;
     align-items: center;
   }
